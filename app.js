@@ -6,6 +6,8 @@ const httpErrors = require('http-errors');
 const logger = require('morgan');
 const path = require('path');
 
+const Session = require('./app/middlewares/session');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -18,6 +20,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(Session)
 
 app.use(express.static(path.join(__dirname, 'public')));
 
