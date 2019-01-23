@@ -6,19 +6,23 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/start",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "sequelize": "node_modules/.bin/sequelize"
   },
   "dependencies": {
+    "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.1",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "http-errors": "^1.7.1",
     "morgan": "^1.9.1",
     "pg": "^7.8.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.42.0"
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
   },
   "devDependencies": {
     "chai": "^4.1.1",

@@ -1,5 +1,7 @@
-const UserModel = require('../models/User');
+//const UserModel = require('../models/User');
 const BaseController = require('./Base');
+const seq = require('../models');
+console.log(seq)
 
 class UsersController extends BaseController {
 
