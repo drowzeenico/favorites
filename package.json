@@ -10,6 +10,7 @@
     "sequelize": "node_modules/.bin/sequelize"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.1",

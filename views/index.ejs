@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-	<title>Landing Page</title>
+	<title>The Favorites - Athletes SOCIAL NETWORK</title>
 
 	<!-- Required meta tags always come first -->
 	<meta charset="utf-8">
@@ -44,7 +44,7 @@
 					<img src="img/logo-colored-small.png" alt="Olympus" class="logo-colored">
 				</div>
 				<div class="title-block">
-					<h6 class="logo-title">The favorites</h6>
+					<h6 class="logo-title">The Favorites</h6>
 					<div class="sub-title">Athletes SOCIAL NETWORK</div>
 				</div>
 			</a>
@@ -76,12 +76,16 @@
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" data-toggle="tab" href="#home" role="tab">
-							<svg class="olymp-login-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-login-icon"></use></svg>
+							<svg class="olymp-login-icon">
+								<use xlink:href="svg-icons/sprites/icons.svg#olymp-login-icon"></use>
+							</svg>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="tab" href="#profile" role="tab">
-							<svg class="olymp-register-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-register-icon"></use></svg>
+							<svg class="olymp-register-icon">
+								<use xlink:href="svg-icons/sprites/icons.svg#olymp-register-icon"></use>
+							</svg>
 						</a>
 					</li>
 				</ul>
@@ -89,44 +93,51 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="home" role="tabpanel" data-mh="log-tab">
-						<div class="title h6">Register to Olympus</div>
-						<form class="content">
+						<div class="title h6">Register to Favorites</div>
+						<form class="content" id="registration">
 							<div class="row">
 								<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
 									<div class="form-group label-floating">
 										<label class="control-label">First Name</label>
-										<input class="form-control" placeholder="" type="text">
+										<input class="form-control" placeholder="" type="text" name="firstName">
 									</div>
 								</div>
 								<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
 									<div class="form-group label-floating">
 										<label class="control-label">Last Name</label>
-										<input class="form-control" placeholder="" type="text">
+										<input class="form-control" placeholder="" type="text" name="lastName">
 									</div>
 								</div>
 								<div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									<div class="form-group label-floating">
 										<label class="control-label">Your Email</label>
-										<input class="form-control" placeholder="" type="email">
+										<input class="form-control" placeholder="" type="email" name="email">
 									</div>
 									<div class="form-group label-floating">
 										<label class="control-label">Your Password</label>
-										<input class="form-control" placeholder="" type="password">
+										<input class="form-control" placeholder="" type="password" name="password">
+									</div>
+
+									<div class="form-group label-floating">
+										<label class="control-label">Repeat Password</label>
+										<input class="form-control" placeholder="" type="password" name="repeatPassword">
 									</div>
 			
 									<div class="form-group date-time-picker label-floating">
 										<label class="control-label">Your Birthday</label>
-										<input name="datetimepicker" value="10/24/1984" />
+										<input name="datetimepicker" value="10/24/1984" name="birthday"/>
 										<span class="input-group-addon">
-														<svg class="olymp-calendar-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-calendar-icon"></use></svg>
-													</span>
+											<svg class="olymp-calendar-icon">
+												<use xlink:href="svg-icons/sprites/icons.svg#olymp-calendar-icon"></use>
+											</svg>
+										</span>
 									</div>
 			
 									<div class="form-group label-floating is-select">
 										<label class="control-label">Your Gender</label>
-										<select class="selectpicker form-control">
-											<option value="MA">Male</option>
-											<option value="FE">Female</option>
+										<select class="selectpicker form-control" name="gender">
+											<option value="0">Male</option>
+											<option value="1">Female</option>
 										</select>
 									</div>
 			
@@ -235,6 +246,7 @@
 <!-- JS Scripts -->
 <script src="/js/jquery-3.2.1.js"></script>
 <script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery.form.js"></script>
 <script src="/js/jquery.mousewheel.js"></script>
 <script src="/js/perfect-scrollbar.js"></script>
 <script src="/js/jquery.matchHeight.js"></script>
@@ -272,6 +284,8 @@
 <script defer src="/fonts/fontawesome-all.js"></script>
 
 <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+
+<script src="/js/forms/registration.js"></script>
 
 </body>
 </html>

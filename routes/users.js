@@ -7,4 +7,8 @@ router.get('/', (req, res) => {
   new Controllers.Users(req, res).index();
 });
 
+router.post('/', (req, res) => {
+  new Controllers.Users(req, res).create();
+});
+
 module.exports = router;

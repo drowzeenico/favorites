@@ -5,6 +5,7 @@ const express = require('express');
 const httpErrors = require('http-errors');
 const logger = require('morgan');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const Session = require('./app/middlewares/session');
 
@@ -22,6 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(Session)
+
+app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
