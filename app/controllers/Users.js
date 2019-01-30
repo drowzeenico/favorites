@@ -1,5 +1,5 @@
 const BaseController = require('./Base');
-const seq = require('../models');
+const Models = require('../models');
 
 const RegistrationForm = require('../forms/registration');
 
@@ -17,9 +17,20 @@ class UsersController extends BaseController {
       return this.error(registrationForm.error);
     }
 
-    return this.res.json({
-      title: 'Sup, guys!'
+    Models.User.create(registrationForm.build())
+    .then(data => {
+      return this.res.json({
+        title: 'Success'
+      })
     })
+    .catch(err => {
+      return this.res.status(422).json({
+        title: 'Failed',
+        ...err
+      })
+    })
+
+    
   }
 
 }

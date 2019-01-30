@@ -9,14 +9,18 @@ class RegistrationForm extends Base {
 
     if(!this._isPasswordsMatch())
       return this.valid;
+
+    return this.valid;
   }
 
   _checkRequiredFields() {
     const required = ['firstName', 'lastName', 'password', 'repeatPassword', 'birthday', 'gender'];
     let fields = required.filter(f => !this.data[f]);
 
-    if(fields.length > 0)
+    if(fields.length > 0) {
       this.error = Exceptions.fieldIsRequired({fields: fields});
+      this.valid = false;      
+    }
 
     return this.valid;
   }
