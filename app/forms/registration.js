@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const Base = require('./base');
 const Exceptions = require('../exceptions');
 
@@ -14,7 +15,7 @@ class RegistrationForm extends Base {
   }
 
   _checkRequiredFields() {
-    const required = ['firstName', 'lastName', 'password', 'repeatPassword', 'birthday', 'gender'];
+    const required = ['firstName', 'lastName', 'email', 'password', 'repeatPassword', 'birthday', 'gender'];
     let fields = required.filter(f => !this.data[f]);
 
     if(fields.length > 0) {
@@ -34,6 +35,15 @@ class RegistrationForm extends Base {
       delete this.data.repeatPassword;
     
     return this.valid;
+  }
+
+  build() {
+    const salt = process.env.PASSWORD_SALT;
+    let hash = crypto.createHmac('sha256', salt);
+    hash.update(this.data.password, 'utf8').digest('hex');
+    this.data.password = hash;
+    console.log(this.data)
+    return this.data;
   }
 }
 

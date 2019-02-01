@@ -1,5 +1,17 @@
 const dotenv = require('dotenv').config();
 
+process.isDev = () => {
+  if (process.env.ENV === 'dev' || process.env.ENV ===  'development')
+    return true;
+  return false;
+}
+
+process.isProd = () => {
+  if(process.env.ENV === 'production')
+    return true;
+  return false;
+}
+
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const httpErrors = require('http-errors');

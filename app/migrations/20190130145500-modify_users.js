@@ -9,6 +9,7 @@ module.exports = {
       queryInterface.addColumn('Users', 'birthday', {
         type: Sequelize.DATE
       }),
+
       queryInterface.addColumn('Users', 'gender', {
         type: Sequelize.ENUM(0, 1)
       }),

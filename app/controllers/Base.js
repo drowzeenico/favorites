@@ -7,7 +7,10 @@ class BaseController {
   }
 
   error(e) {
-    this.res.status(e.status);
+    if(process.isProd())
+      delete e.payload;
+
+    this.res.status(e.status || 500);
     this.res.json(e);
   }
 
