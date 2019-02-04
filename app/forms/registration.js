@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const Base = require('./base');
 const Exceptions = require('../exceptions');
 
@@ -31,18 +30,12 @@ class RegistrationForm extends Base {
       this.error = Exceptions.passwordsAreMismatched();
       this.valid = false;
     }
-    else
-      delete this.data.repeatPassword;
     
     return this.valid;
   }
 
   build() {
-    const salt = process.env.PASSWORD_SALT;
-    let hash = crypto.createHmac('sha256', salt);
-    hash.update(this.data.password, 'utf8').digest('hex');
-    this.data.password = hash;
-    console.log(this.data)
+    delete this.data.repeatPassword;
     return this.data;
   }
 }

@@ -7,7 +7,7 @@ const Exceptions = require('../exceptions')
 class UsersController extends BaseController {
 
   index() {
-    return this.res.json({
+    return this.json({
       title: 'Here we are'
     })
   }
@@ -18,18 +18,15 @@ class UsersController extends BaseController {
       return this.error(registrationForm.error);
     }
 
-    Models.User.create(registrationForm.build())
-    .then(data => {
-      return this.res.json({
-        title: 'Success'
+    Models.User.create(registrationForm.build()).then(user => {
+      return this.json({
+        success: true,
+        user: user
       })
     })
     .catch(err => {
-      let error = Exceptions.unhundledError(err, 'Error occured while creating new user');
-      if(err.name && Exceptions[err.name])
-        error = Exceptions[err.name](err);
-
-      return this.error(error);
+      let defaultError = Exceptions.unhundledError(err, 'Error occured while creating new user');
+      this.resolveError(defaultError, err).error();
     })
 
     

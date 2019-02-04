@@ -9,6 +9,11 @@
     "test": "mocha --recursive",
     "sequelize": "node_modules/.bin/sequelize"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "public/*"
+    ]
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "connect-pg-simple": "^5.0.0",
