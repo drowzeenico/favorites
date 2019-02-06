@@ -1,12 +1,17 @@
 const { Router } = require('express');
+const Controllers = require('../app/controllers');
 
 const router = Router();
 
-/* GET index page. */
 router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Express'
-  });
+  if(req.session.user)
+    return res.redirect('/profile');
+
+  res.render('index');
+});
+
+router.get('/profile', (req, res) => {
+  new Controllers.Profile(req, res).index();
 });
 
 module.exports = router;

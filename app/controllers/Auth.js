@@ -30,7 +30,7 @@ class AuthController extends BaseController {
         throw Exceptions.userNotFound();
         
       this.req.session.user = user;
-      this.res.redirect('/');
+      this.json(user);
     }).catch(err => {
       let defaultError = Exceptions.authentificationFailed(err);
       this.resolveError(defaultError, err).error();

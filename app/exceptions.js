@@ -3,8 +3,10 @@ module.exports = {
   fieldIsRequired: e => ({
     name: 'fieldIsRequired',
     status: 422,
-    message: 'This field is required',
-    payload: e
+    message: 'This fields are required',
+    fields: e.fields,
+    payload: e,
+    code: 'FIELD_IS_REQUIRED'
   }),
 
   passwordsAreMismatched: e => ({
