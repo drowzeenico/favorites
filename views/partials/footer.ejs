@@ -40,8 +40,9 @@
 
 <script src="/bootstrap/js/bootstrap.bundle.js"></script>
 
-<script src="/js/forms/registration.js"></script>
-<script src="/js/forms/login.js"></script>
+<% jsFiles.forEach(function (file) { %>
+<script src="<%- file %>"></script>
+<% }) %>
 
 </body>
 </html>

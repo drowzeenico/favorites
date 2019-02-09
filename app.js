@@ -20,10 +20,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const Session = require('./app/middlewares/session');
+const Response = require('./app/middlewares/response');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const routesRouter = require('./routes/routes');
 
 const app = express();
 
@@ -44,9 +46,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(Response);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/routes', routesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
