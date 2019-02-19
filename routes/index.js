@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Controllers = require('../app/controllers');
+const Auth = require('../app/middlewares/auth');
 
 const router = Router();
 
@@ -14,11 +15,11 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.get('/profile', (req, res) => {
+router.get('/profile', [Auth], (req, res) => {
   new Controllers.Profile(req, res).index();
 });
 
-router.get('/routes', (req, res) => {
+router.get('/routes', [Auth], (req, res) => {
   res.locals.jsFiles = [
     '/js/routes.js',
     'https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=' + process.env.YANDEX_MAPS_API_KEY

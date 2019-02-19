@@ -33,6 +33,7 @@ $('#registration').on('submit', function(e) {
     $('#registration #registrationErrorMessage').show();
   })
   .fail(err => {
+    console.log(err);
     if(err.responseJSON.fields != null)
       err.responseJSON.fields.map(f => {
         $('#registration input[name="'+f+'"]').parent().addClass('has-error');
