@@ -25,10 +25,9 @@ class RoutesData extends Base {
   }
 
   build() {
-    const service = new RouteService();
-    service.coords = this.data.coords;
-    service.buildPolygonByLine();
-    this.data.coords = service.route.coords;
+    const service = new RouteService({coords: this.data.coords});
+    service.calculateMinimumConvexHull();
+    this.data.coords = service.route.minimumConvexHull;
     return this.data;
   }
 
