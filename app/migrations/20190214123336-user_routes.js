@@ -20,6 +20,10 @@ module.exports = {
         type: Sequelize.GEOMETRY('POLYGON', 4326),
         allowNull: false
       },
+      original: {
+        type: Sequelize.GEOMETRY('LINESTRING', 4326),
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

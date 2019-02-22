@@ -24,10 +24,15 @@ class RoutesData extends Base {
     return this.valid;
   }
 
-  build() {
+  build(user_id) {
     const service = new RouteService({coords: this.data.coords});
     service.calculateMinimumConvexHull();
-    this.data.coords = service.route.minimumConvexHull;
+    
+    this.data.area = service.route.minimumConvexHull;
+    this.data.user_id = user_id;
+    this.data.original = this.data.coords;
+    delete this.data.coords;
+
     return this.data;
   }
 

@@ -15,7 +15,11 @@ module.exports = (DataTypes) => ({
     notNull: true
   },
   area: {
-    type: DataTypes.GEOMETRY('POLYGON', 4236),
+    type: DataTypes.GEOMETRY('POLYGON', 4326),
+    notNull: true
+  },
+  original: {
+    type: DataTypes.GEOMETRY('LINESTRING', 4326),
     notNull: true
   }
 });

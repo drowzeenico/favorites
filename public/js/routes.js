@@ -11,8 +11,12 @@ $(() => {
       };
       
       $.post('/routes', routeObject, (data) => {
-        let coords = data.coords;
-        makePolygon(coords);
+        if(data.area) {
+          let coords = data.area;
+          makePolygon(coords);
+        } else {
+          alert('Something went wrong...');
+        }
       }, 'json');
     }
   }
