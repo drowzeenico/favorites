@@ -33,8 +33,6 @@ class BaseController {
     this.json(this.errorObject, false, this.errorObject.status || 500);
   }
 
-  
-
 }
 
 module.exports = BaseController;

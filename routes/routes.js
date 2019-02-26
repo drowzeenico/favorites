@@ -5,7 +5,20 @@ const Auth = require('../app/middlewares/auth');
 const router = Router();
 
 router.get('/', [Auth], (req, res) => {
-  res.json({routes: true})
+  res.locals.jsFiles = [
+    '/js/routes.js',
+    'https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=' + process.env.YANDEX_MAPS_API_KEY
+  ];
+
+  new Controllers.Routes(req, res).index();
+});
+
+router.get('/:id', [Auth], (req, res) => {
+  new Controllers.Routes(req, res).get();
+});
+
+router.get('/nearby/:id', [Auth], (req, res) => {
+  new Controllers.Routes(req, res).findNearby();
 });
 
 router.post('/', [Auth], (req, res) => {

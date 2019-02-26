@@ -6,26 +6,29 @@
 			<div class="ui-block">
 				<div class="top-header">
 					<div class="top-header-thumb" id="map"></div>
-					<div class="profile-section">
-						<div class="row">
-							<div class="col col-lg-5 col-md-5 col-sm-12 col-12">
-								<ul class="profile-menu">
-									<li>
-										<a href="02-ProfilePage.html" class="active">Timeline</a>
-									</li>
-									<li>
-										<a href="05-ProfilePage-About.html">About</a>
-									</li>
-									<li>
-										<a href="06-ProfilePage.html">Friends</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<% routesList.forEach(function(route) { %>
+			<div class="ui-block get_route" data-id="<%= route.id %>">
+				<div class="birthday-item inline-items badges">
+					<div class="author-thumb">
+						<img src="img/badge1.png" alt="author">
+					</div>
+					<div class="birthday-author-name">
+						<a href="#" class="h6 author-name"><%= route.name %></a>
+					</div>
+				
+					<div class="btn btn-primary btn-sm find_nearby_routes" data-id="<%= route.id %>">
+						Find routes like this
+					</div>
+				</div>
+			</div>
+			<%})%>
 		</div>
 	</div>
 </div>

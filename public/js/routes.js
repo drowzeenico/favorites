@@ -48,8 +48,7 @@ $(() => {
   const addClearButton = () => {
     let clearButton = new ymaps.control.Button("Clear");
     clearButton.events.add('click', function() {
-      myMap.geoObjects.remove(polyline);
-      myMap.geoObjects.remove(selectedArea);
+      clearObjects();
       createPolyline();
     });
     myMap.controls.add(clearButton, {
@@ -57,15 +56,22 @@ $(() => {
     });
   }
 
-  const createPolyline = () => {
-    polyline = new ymaps.Polyline([], {}, {
+  clearObjects = () => {
+    myMap.geoObjects.remove(polyline);
+    myMap.geoObjects.remove(selectedArea);
+  }
+
+  const createPolyline = (coords = []) => {
+    polyline = new ymaps.Polyline(coords, {}, {
       strokeColor: '#0000aa',
       strokeWidth: 3
     });
 
     myMap.geoObjects.add(polyline);
-    polyline.editor.startEditing();	
-    polyline.editor.startDrawing();	
+    if(coords.length == 0) {
+      polyline.editor.startEditing();	
+      polyline.editor.startDrawing();	
+    }
   }
 
   const init = () => {
@@ -79,6 +85,27 @@ $(() => {
     addSaveButton();
     createPolyline();    
   }
+
+  $('.get_route').click(function (e) {
+    clearObjects();
+    const id = $(this).data('id');
+    $.get('/routes/' + id, data => {
+
+      if(data.area && data.original) {
+        createPolyline(data.original.coordinates);
+        makePolygon(data.area.coordinates[0]);
+      }
+    });
+  })
+
+  $('.find_nearby_routes').click(function (e) {
+    clearObjects();
+    const id = $(this).data('id');
+    $.get('/routes/nearby/' + id, data => {
+
+      console.log(data);
+    });
+  })
 
   ymaps.ready(init);
 })

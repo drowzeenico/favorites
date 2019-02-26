@@ -19,13 +19,4 @@ router.get('/profile', [Auth], (req, res) => {
   new Controllers.Profile(req, res).index();
 });
 
-router.get('/routes', [Auth], (req, res) => {
-  res.locals.jsFiles = [
-    '/js/routes.js',
-    'https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=' + process.env.YANDEX_MAPS_API_KEY
-  ];
-
-  res.render('routes/index')
-});
-
 module.exports = router;
