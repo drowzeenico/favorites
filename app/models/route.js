@@ -13,26 +13,26 @@ module.exports = (sequelize, DataTypes) => {
     route.original = service.makeOriginalGeoObject();
   })
 
-  Route.findNearbyRoutes = (id, area) => {
-    const service = new RouteService({area: area.coordinates});
-    area = service.makeAreaGeoObject();
-    
+  Route.findNearbyRoutes = (id, user_id) => {
     const plainSQL = `
-      with geometry as (
-        select ST_GeomFromGeoJSON(:area)
+      with selected as (
+        select area from routes where id = :id
       )
-      select *, st_area(st_intersection( (select * from geometry), area )) as square
+      select *, st_area(st_intersection((select * from selected), area)) as square
       from (
-          select *, st_intersects( (select * from geometry), area ) as common
+          select *, st_intersects((select * from selected), area) as common
           from routes
-          where id != :id
+          where id != :id 
         ) as Intersects
       where common = true
       order by square DESC`;
-    sequelize.query(plainSQL, {
+
+      // and user_id != :user_id
+    
+      return sequelize.query(plainSQL, {
       replacements: {
         id: id,
-        area: JSON.stringify(area)
+        user_id: user_id
       },
       type: sequelize.QueryTypes.SELECT
     })

@@ -1,5 +1,6 @@
 $(() => {
   let myMap, polyline, selectedArea;
+  let mapObjects = [];
 
   const save = (coords) => {
     const routeName = prompt('Please, name this route');
@@ -25,9 +26,12 @@ $(() => {
     myMap.geoObjects.remove(selectedArea);
     selectedArea = new ymaps.Polygon([coords], null, {
       strokeColor: '#ccc',
-      strokeWidth: 2
+      strokeWidth: 2,
+      fillColor: '#00aa00',
+      opacity: 0.3
     });
 
+    mapObjects.push(selectedArea);
     myMap.geoObjects.add(selectedArea);
   }
 
@@ -57,8 +61,9 @@ $(() => {
   }
 
   clearObjects = () => {
-    myMap.geoObjects.remove(polyline);
-    myMap.geoObjects.remove(selectedArea);
+    mapObjects.forEach(obj => {
+      myMap.geoObjects.remove(obj);
+    })
   }
 
   const createPolyline = (coords = []) => {
@@ -67,11 +72,16 @@ $(() => {
       strokeWidth: 3
     });
 
+    mapObjects.push(polyline);
     myMap.geoObjects.add(polyline);
     if(coords.length == 0) {
       polyline.editor.startEditing();	
       polyline.editor.startDrawing();	
     }
+  }
+
+  const generateColor = () => {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
   const init = () => {
@@ -103,7 +113,19 @@ $(() => {
     const id = $(this).data('id');
     $.get('/routes/nearby/' + id, data => {
 
-      console.log(data);
+      if(data.routes.length > 0) {
+        data.routes.forEach(r => {
+          let color = generateColor();
+          console.log(color);
+          let myPolyline = new ymaps.Polyline(r.original.coordinates, {}, {
+            strokeColor: color,
+            strokeWidth: 2
+          });
+
+          mapObjects.push(myPolyline);
+          myMap.geoObjects.add(myPolyline);  
+        });
+      }
     });
   })
 

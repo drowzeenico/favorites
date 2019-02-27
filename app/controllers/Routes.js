@@ -46,15 +46,12 @@ class RoutesController extends BaseController {
   }
 
   findNearby() {
-    Models.Route.findByPk(this.req.params.id)
-    .then(r => {
-      Models.Route.findNearbyRoutes(r.id, r.area)
-    })
+    Models.Route.findNearbyRoutes(this.req.params.id, this.req.session.user.id)
     .then(items => {
       this.json({
         routes: items || []
       });
-    }).catch(e => {
+    }).catch(err => {
       console.log(err);
       let defaultError = Exceptions.unhundledError(err, 'Error occured while serching routes');
       this.resolveError(defaultError, err).error();
