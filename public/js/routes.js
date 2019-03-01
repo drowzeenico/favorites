@@ -25,10 +25,7 @@ $(() => {
   const makePolygon = (coords) => {
     myMap.geoObjects.remove(selectedArea);
     selectedArea = new ymaps.Polygon([coords], null, {
-      strokeColor: '#ccc',
-      strokeWidth: 2,
-      fillColor: '#00aa00',
-      opacity: 0.3
+      opacity: 0.8
     });
 
     mapObjects.push(selectedArea);
@@ -80,10 +77,6 @@ $(() => {
     }
   }
 
-  const generateColor = () => {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }
-
   const init = () => {
     myMap = new ymaps.Map('map', {
         center: [56.135830, 47.238204],
@@ -112,18 +105,31 @@ $(() => {
     clearObjects();
     const id = $(this).data('id');
     $.get('/routes/nearby/' + id, data => {
-
       if(data.routes.length > 0) {
         data.routes.forEach(r => {
-          let color = generateColor();
-          console.log(color);
           let myPolyline = new ymaps.Polyline(r.original.coordinates, {}, {
-            strokeColor: color,
+            strokeColor: '#0000aa',
             strokeWidth: 2
           });
 
-          mapObjects.push(myPolyline);
-          myMap.geoObjects.add(myPolyline);  
+          let myPolylineArea = new ymaps.Polygon(r.area.coordinates, null, {
+            fillColor: '#00aa00',
+            opacity: 0.3,
+            zIndexHover: 1000
+          });
+
+          myPolylineArea.events.add('click', function(e) {
+            let content = `
+              User: <b>${r.firstName} ${r.lastName}</b><br>
+              Route name - <b>${r.name}</b><br><br>
+              <button class="btn btn-blue">Send request</button>
+            `;
+            myMap.balloon.open(e.get('coords'), content, {});
+          });
+
+          mapObjects.push(myPolyline, myPolylineArea);
+          myMap.geoObjects.add(myPolyline);
+          myMap.geoObjects.add(myPolylineArea);
         });
       }
     });

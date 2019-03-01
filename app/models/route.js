@@ -15,21 +15,26 @@ module.exports = (sequelize, DataTypes) => {
 
   Route.findNearbyRoutes = (id, user_id) => {
     const plainSQL = `
-      with selected as (
-        select area from routes where id = :id
+      WITH selected AS (
+        SELECT area FROM routes WHERE id = :id
       )
-      select *, st_area(st_intersection((select * from selected), area)) as square
-      from (
-          select *, st_intersects((select * from selected), area) as common
-          from routes
-          where id != :id 
-        ) as Intersects
-      where common = true
-      order by square DESC`;
+      SELECT 
+        Intersects.*, 
+	      "Users"."firstName", 
+	      "Users"."lastName",
+        st_area(st_intersection((SELECT * FROM selected), area)) AS square
+      FROM (
+          SELECT *, st_intersects((SELECT * FROM selected), area) AS common
+          FROM routes
+          WHERE id != :id AND user_id != :user_id
+        ) AS Intersects 
+        INNER JOIN "Users" ON intersects.user_id = "Users".id
+      WHERE common = true
+      ORDER BY square DESC`;
 
       // and user_id != :user_id
     
-      return sequelize.query(plainSQL, {
+    return sequelize.query(plainSQL, {
       replacements: {
         id: id,
         user_id: user_id
